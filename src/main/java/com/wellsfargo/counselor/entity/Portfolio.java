@@ -1,36 +1,47 @@
 package com.wellsfargo.counselor.entity;
 
+
 import jakarta.persistence.*;
-import java.util.*;
 
 @Entity
-@Table(name = "portfolios")
 public class Portfolio {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue()
+    private long portfolioId;
 
-    private Long portfolioId;
-
-    @OneToOne(optional = false)
-    @JoinColumn(name = "client_id")
+    @ManyToOne
     private Client client;
 
-    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Security> securities = new ArrayList<>();
+    @Column(nullable = false)
+    private String creationDate;
 
-    protected Portfolio() { }
+    protected Portfolio() {
 
-    public Portfolio(Client client) {
+    }
+
+    public Portfolio(Client client, String creationDate) {
+        this.client = client;
+        this.creationDate = creationDate;
+    }
+
+    public Long getPortfolioId() {
+        return portfolioId;
+    }
+
+    public Client getCLient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
         this.client = client;
     }
 
-    public Long getPortfolioId() { return portfolioId; }
+    public String getCreationDate() {
+        return creationDate;
+    }
 
-    public Client getClient() { return client; }
-    public void setClient(Client client) { this.client = client; }
-
-    public List<Security> getSecurities() { return securities; }
-    public void setSecurities(List<Security> securities) { this.securities = securities; }
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
 }
-

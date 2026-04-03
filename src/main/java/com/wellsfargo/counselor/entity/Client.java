@@ -7,7 +7,10 @@ public class Client {
 
     @Id
     @GeneratedValue()
-    private int id;
+    private long clientId;
+
+    @ManyToOne
+    private Advisor advisor;
 
     @Column(nullable = false)
     private String firstName;
@@ -16,29 +19,37 @@ public class Client {
     private String lastName;
 
     @Column(nullable = false)
-    private String email;
+    private String address;
 
     @Column(nullable = false)
-    private String password;
+    private String phone;
 
-    public Client() {
+    @Column(nullable = false)
+    private String email;
+
+    protected Client() {
+
     }
 
-
-    public Client(int id, String firstName, String lastName, String email, String password) {
-        this.id =id;
+    public Client(Advisor advisor, String firstName, String lastName, String address, String phone, String email) {
+        this.advisor = advisor;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
         this.email = email;
-        this.password = password;
-
-    }
-    public int getId() {
-        return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public Advisor getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
     }
 
     public String getFirstName() {
@@ -57,6 +68,22 @@ public class Client {
         this.lastName = lastName;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -64,13 +91,4 @@ public class Client {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }
